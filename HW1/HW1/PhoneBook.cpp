@@ -32,23 +32,23 @@ std::ostream& operator<<(std::ostream& out, const Person& p)
 
 bool operator<(const PhoneNumber& pN1, const PhoneNumber& pN2)
 {
-    return std::tie(pN1.countryÑode, pN1.townÑode, pN1.pNumber, pN1.addNumber) <
-        std::tie(pN2.countryÑode, pN2.townÑode, pN1.pNumber, pN2.addNumber);
+    return std::tie(pN1.countryCode, pN1.townCode, pN1.pNumber, pN1.addNumber) <
+        std::tie(pN2.countryCode, pN2.townCode, pN1.pNumber, pN2.addNumber);
 }
 
 std::ostream& operator<<(std::ostream& out, const PhoneNumber& pN)
 {
     if (pN.addNumber.has_value())
     {
-        out << "+" << pN.countryÑode
-            << "(" << pN.townÑode
+        out << "+" << pN.countryCode
+            << "(" << pN.townCode
             << ")" << pN.pNumber
             << " " << pN.addNumber.value();
     }
     else
     {
-        out << "+" << pN.countryÑode
-            << "(" << pN.townÑode
+        out << "+" << pN.countryCode
+            << "(" << pN.townCode
             << ")" << pN.pNumber;
     }
     return out;
@@ -78,10 +78,10 @@ PhoneBook::PhoneBook(std::ifstream& f)
                     person.patronymic.reset();
                 }
             }
-            in >> personNumber.countryÑode;
+            in >> personNumber.countryCode;
             if (in.getline(&line[0], in.tellg(), '('))
             {
-                in >> personNumber.townÑode;
+                in >> personNumber.townCode;
             }
             if (in.getline(&line[0], in.tellg(), ')'))
             {

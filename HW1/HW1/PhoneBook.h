@@ -25,8 +25,8 @@ std::ostream& operator<<(std::ostream& out, const Person& p);
 
 struct PhoneNumber
 {
-    int                         countryÑode;
-    int                         townÑode;
+    int                         countryCode;
+    int                         townCode;
     std::string                 pNumber;
     std::optional<int>          addNumber;
 };
