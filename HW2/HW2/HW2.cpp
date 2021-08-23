@@ -17,8 +17,8 @@ void sortPointers(std::vector<T*>& v);
 template < typename T >
 void printVector(const std::vector<T*>& v);
 
-//template < typename T >
-//void deleteVector(std::vector<T*>& v);
+template < typename T >
+void deleteVector(std::vector<T*>& v);
 
 const std::string strVowels("AaEeIiOoUuYy");
 //const std::string strVowels("ÀàÅå¸ÈèÎîÓóûİıŞşßÿ");
@@ -73,6 +73,7 @@ int main()
     printVector(v);
     sortPointers(v);
     printVector(v);
+    deleteVector(v);
 
     std::cout << "__________________________________________________________\n";
 #pragma endregion
@@ -138,7 +139,7 @@ void printVector(const std::vector<T*>& v)
 template < typename T >
 void deleteVector(std::vector<T*>& v)
 {
-    for (typename std::vector<T*>::const_iterator it = v.begin(); it != v.end(); ++it)
+    for (typename std::vector<T*>::iterator it = v.begin(); it != v.end(); ++it)
     {
         delete* it;
         *it = nullptr;
