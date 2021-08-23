@@ -124,27 +124,27 @@ template < typename T >
 void printVector(const std::vector<T*>& v)
 {
     std::cout << "vec : ";
-    /*for (std::vector<T*>::const_iterator it = v.begin(); it != v.end(); it++)
+    for (typename std::vector<T*>::const_iterator it = v.begin(); it != v.end(); it++)
     {
         std::cout << *(*it) << " ";
-    }*/
-    for (size_t i = 0; i < v.size(); i++)
+    }
+    /*for (size_t i = 0; i < v.size(); i++)
     {
         std::cout << *v[i] << " ";
-    }
+    }*/
     std::cout << "\n";
 }
 
-//template < typename T >
-//void deleteVector(std::vector<T*>& v)
-//{
-//    for (std::vector<T*>::iterator it = v.begin(); it != v.end(); ++it)
-//    {
-//        delete* it;
-//        *it = nullptr;
-//    }
-//    v.clear();
-//}
+template < typename T >
+void deleteVector(std::vector<T*>& v)
+{
+    for (typename std::vector<T*>::const_iterator it = v.begin(); it != v.end(); ++it)
+    {
+        delete* it;
+        *it = nullptr;
+    }
+    v.clear();
+}
 
 void getCountVowels1() //count_if è find
 {
