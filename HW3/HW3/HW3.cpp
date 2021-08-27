@@ -77,17 +77,39 @@ int main()
     =======================================================================================================================================
     */
 
-    Array<int> arr(10);
-    int x = 0;
-    for (auto it = arr.begin(); it != arr.end(); it++)
+    Array<int> arr(7);
+
+    for (size_t i = 0; i < arr.size(); i++)
     {
-        it = x++;
+        arr[i] = 1 + 3 * i;
     }
-    for (auto it = arr.begin(); it != arr.end(); it++)
+
+    for (const auto& n : arr)
     {
-        std::cout << *it << " ";
+        std::cout << n << " ";
     }
     std::cout << "\n";
+
+    arr[0] = 1;
+    arr[1] = 2;
+    arr[2] = 3;
+    arr[3] = 4;
+    arr[4] = 5;
+    arr[5] = 6;
+    arr[6] = 7;
+
+    Array<int>::iterator it = arr.begin();
+    for (it; it != arr.end(); ++it)
+    {
+        if (*it % 2 == 0)
+        {
+            std::cout << *it << " ";
+        }
+    }
+    if (it == arr.end())
+    {
+        std::cout << "\nend\n";
+    }
 
     std::cout << "__________________________________________________________\n";
 #pragma endregion
