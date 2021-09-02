@@ -77,7 +77,7 @@ int main()
 
 	std::transform(aSignal.begin(), aSignal.end(), dSignal.begin(), [&](const double aSignal)
 		{
-			return static_cast<int>(round(aSignal));
+			return static_cast<int>(trunc(aSignal));
 		}
 	);
 
