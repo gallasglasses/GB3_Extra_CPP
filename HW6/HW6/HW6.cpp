@@ -3,9 +3,14 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <vector>
+#include <mutex>
+#include <iomanip> 
+#include <algorithm>
 #include "pcout.h"
 
 std::mutex PCout::mPrint{};
+std::mutex mHouse;
 
 void FunctionForPCout1(size_t i)
 {
@@ -57,6 +62,53 @@ long long PrimeNumberCounter(long long checkedNumber)
 	return thatNumber;
 }
 
+void MasterTrickster(std::vector<size_t>& item)
+{
+	while (!item.empty())
+	{
+		mHouse.lock();
+		size_t NewItem = rand() % 100 + 1;
+		item.push_back(NewItem);
+		std::cout << "\nThe master bought a new item for $ " << NewItem << "\n";
+		std::cout << "++++++++++++++++++++++++\n";
+		std::cout << "+   Master's cabinet   +\n";
+		std::cout << "++++++++++++++++++++++++\n";
+		size_t cout = 1;
+		for (std::vector<size_t>::iterator it = item.begin(); it != item.end(); ++it, cout++)
+		{
+
+			std::cout << "+ " << std::setw(2) << cout << ". " << std::setw(16)<< *it << " +\n";
+		}
+		std::cout << "++++++++++++++++++++++++\n";
+		mHouse.unlock();
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}
+}
+
+void ThiefGarrett(std::vector<size_t>& item)
+{
+	while (!item.empty())
+	{
+		mHouse.lock();
+		std::vector<size_t> ThiefTreasure;
+		std::vector<size_t>::iterator ExpensiveItem = std::max_element(item.begin(), item.end());
+		ThiefTreasure.push_back(*ExpensiveItem);
+		std::cout << "\nThe thief stolen a new item for $ " << *ExpensiveItem << "\n";
+		item.erase(ExpensiveItem);
+		std::cout << "########################\n";
+		std::cout << "#   Thief's treasure   #\n";
+		std::cout << "########################\n";
+		size_t cout = 1;
+		for (std::vector<size_t>::iterator it = ThiefTreasure.begin(); it != ThiefTreasure.end(); ++it, cout++)
+		{
+
+			std::cout << "# " << std::setw(2) << cout << ". " << std::setw(16) << *it << " #\n";
+		}
+		std::cout << "########################\n";
+		mHouse.unlock();
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}
+}
 
 int main()
 {
@@ -115,6 +167,12 @@ int main()
 	каждый раз забирает вещь с наибольшей ценностью.
 	===================================================================================================
 	*/
+
+	std::vector<size_t> items = { 29, 49, 99, 69 };
+	std::thread Master(MasterTrickster, std::ref(items));
+	std::thread Thief(ThiefGarrett, std::ref(items));
+	Master.join();
+	Thief.join();
 
 
 
