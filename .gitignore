@@ -364,3 +364,5 @@ FodyWeavers.xsd
 *.filters
 *.vcxproj
 *.sln
+/HW7/Dependencies/include/google/protobuf
+/HW7/Dependencies/lib
