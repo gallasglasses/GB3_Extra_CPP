@@ -364,3 +364,4 @@ FodyWeavers.xsd
 *.filters
 *.vcxproj
 *.sln
+/HW7/Dependencies
