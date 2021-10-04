@@ -224,7 +224,11 @@ class FullName final :
   std::string* _internal_mutable_name();
   public:
 
-  // string patronymic = 3;
+  // optional string patronymic = 3;
+  bool has_patronymic() const;
+  private:
+  bool _internal_has_patronymic() const;
+  public:
   void clear_patronymic();
   const std::string& patronymic() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -245,10 +249,11 @@ class FullName final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr surname_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr patronymic_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Students_2eproto;
 };
 // -------------------------------------------------------------------
@@ -372,28 +377,10 @@ class Student final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kStudentFullNameFieldNumber = 4,
     kScoresFieldNumber = 5,
+    kStudentFullNameFieldNumber = 4,
     kGPAFieldNumber = 6,
   };
-  // repeated .Students.FullName StudentFullName = 4;
-  int studentfullname_size() const;
-  private:
-  int _internal_studentfullname_size() const;
-  public:
-  void clear_studentfullname();
-  ::Students::FullName* mutable_studentfullname(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Students::FullName >*
-      mutable_studentfullname();
-  private:
-  const ::Students::FullName& _internal_studentfullname(int index) const;
-  ::Students::FullName* _internal_add_studentfullname();
-  public:
-  const ::Students::FullName& studentfullname(int index) const;
-  ::Students::FullName* add_studentfullname();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Students::FullName >&
-      studentfullname() const;
-
   // repeated int32 Scores = 5;
   int scores_size() const;
   private:
@@ -416,6 +403,24 @@ class Student final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 >*
       mutable_scores();
 
+  // .Students.FullName StudentFullName = 4;
+  bool has_studentfullname() const;
+  private:
+  bool _internal_has_studentfullname() const;
+  public:
+  void clear_studentfullname();
+  const ::Students::FullName& studentfullname() const;
+  PROTOBUF_MUST_USE_RESULT ::Students::FullName* release_studentfullname();
+  ::Students::FullName* mutable_studentfullname();
+  void set_allocated_studentfullname(::Students::FullName* studentfullname);
+  private:
+  const ::Students::FullName& _internal_studentfullname() const;
+  ::Students::FullName* _internal_mutable_studentfullname();
+  public:
+  void unsafe_arena_set_allocated_studentfullname(
+      ::Students::FullName* studentfullname);
+  ::Students::FullName* unsafe_arena_release_studentfullname();
+
   // double GPA = 6;
   void clear_gpa();
   double gpa() const;
@@ -432,9 +437,9 @@ class Student final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Students::FullName > studentfullname_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField< ::PROTOBUF_NAMESPACE_ID::int32 > scores_;
   mutable std::atomic<int> _scores_cached_byte_size_;
+  ::Students::FullName* studentfullname_;
   double gpa_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Students_2eproto;
@@ -694,9 +699,17 @@ inline void FullName::set_allocated_name(std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:Students.FullName.name)
 }
 
-// string patronymic = 3;
+// optional string patronymic = 3;
+inline bool FullName::_internal_has_patronymic() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool FullName::has_patronymic() const {
+  return _internal_has_patronymic();
+}
 inline void FullName::clear_patronymic() {
   patronymic_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& FullName::patronymic() const {
   // @@protoc_insertion_point(field_get:Students.FullName.patronymic)
@@ -705,7 +718,7 @@ inline const std::string& FullName::patronymic() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void FullName::set_patronymic(ArgT0&& arg0, ArgT... args) {
- 
+ _has_bits_[0] |= 0x00000001u;
  patronymic_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:Students.FullName.patronymic)
 }
@@ -718,22 +731,26 @@ inline const std::string& FullName::_internal_patronymic() const {
   return patronymic_.Get();
 }
 inline void FullName::_internal_set_patronymic(const std::string& value) {
-  
+  _has_bits_[0] |= 0x00000001u;
   patronymic_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* FullName::_internal_mutable_patronymic() {
-  
+  _has_bits_[0] |= 0x00000001u;
   return patronymic_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* FullName::release_patronymic() {
   // @@protoc_insertion_point(field_release:Students.FullName.patronymic)
-  return patronymic_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  if (!_internal_has_patronymic()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  return patronymic_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void FullName::set_allocated_patronymic(std::string* patronymic) {
   if (patronymic != nullptr) {
-    
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    
+    _has_bits_[0] &= ~0x00000001u;
   }
   patronymic_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), patronymic,
       GetArenaForAllocation());
@@ -744,44 +761,94 @@ inline void FullName::set_allocated_patronymic(std::string* patronymic) {
 
 // Student
 
-// repeated .Students.FullName StudentFullName = 4;
-inline int Student::_internal_studentfullname_size() const {
-  return studentfullname_.size();
+// .Students.FullName StudentFullName = 4;
+inline bool Student::_internal_has_studentfullname() const {
+  return this != internal_default_instance() && studentfullname_ != nullptr;
 }
-inline int Student::studentfullname_size() const {
-  return _internal_studentfullname_size();
+inline bool Student::has_studentfullname() const {
+  return _internal_has_studentfullname();
 }
 inline void Student::clear_studentfullname() {
-  studentfullname_.Clear();
+  if (GetArenaForAllocation() == nullptr && studentfullname_ != nullptr) {
+    delete studentfullname_;
+  }
+  studentfullname_ = nullptr;
 }
-inline ::Students::FullName* Student::mutable_studentfullname(int index) {
-  // @@protoc_insertion_point(field_mutable:Students.Student.StudentFullName)
-  return studentfullname_.Mutable(index);
+inline const ::Students::FullName& Student::_internal_studentfullname() const {
+  const ::Students::FullName* p = studentfullname_;
+  return p != nullptr ? *p : reinterpret_cast<const ::Students::FullName&>(
+      ::Students::_FullName_default_instance_);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Students::FullName >*
-Student::mutable_studentfullname() {
-  // @@protoc_insertion_point(field_mutable_list:Students.Student.StudentFullName)
-  return &studentfullname_;
-}
-inline const ::Students::FullName& Student::_internal_studentfullname(int index) const {
-  return studentfullname_.Get(index);
-}
-inline const ::Students::FullName& Student::studentfullname(int index) const {
+inline const ::Students::FullName& Student::studentfullname() const {
   // @@protoc_insertion_point(field_get:Students.Student.StudentFullName)
-  return _internal_studentfullname(index);
+  return _internal_studentfullname();
 }
-inline ::Students::FullName* Student::_internal_add_studentfullname() {
-  return studentfullname_.Add();
+inline void Student::unsafe_arena_set_allocated_studentfullname(
+    ::Students::FullName* studentfullname) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(studentfullname_);
+  }
+  studentfullname_ = studentfullname;
+  if (studentfullname) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:Students.Student.StudentFullName)
 }
-inline ::Students::FullName* Student::add_studentfullname() {
-  ::Students::FullName* _add = _internal_add_studentfullname();
-  // @@protoc_insertion_point(field_add:Students.Student.StudentFullName)
-  return _add;
+inline ::Students::FullName* Student::release_studentfullname() {
+  
+  ::Students::FullName* temp = studentfullname_;
+  studentfullname_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::Students::FullName >&
-Student::studentfullname() const {
-  // @@protoc_insertion_point(field_list:Students.Student.StudentFullName)
+inline ::Students::FullName* Student::unsafe_arena_release_studentfullname() {
+  // @@protoc_insertion_point(field_release:Students.Student.StudentFullName)
+  
+  ::Students::FullName* temp = studentfullname_;
+  studentfullname_ = nullptr;
+  return temp;
+}
+inline ::Students::FullName* Student::_internal_mutable_studentfullname() {
+  
+  if (studentfullname_ == nullptr) {
+    auto* p = CreateMaybeMessage<::Students::FullName>(GetArenaForAllocation());
+    studentfullname_ = p;
+  }
   return studentfullname_;
+}
+inline ::Students::FullName* Student::mutable_studentfullname() {
+  ::Students::FullName* _msg = _internal_mutable_studentfullname();
+  // @@protoc_insertion_point(field_mutable:Students.Student.StudentFullName)
+  return _msg;
+}
+inline void Student::set_allocated_studentfullname(::Students::FullName* studentfullname) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete studentfullname_;
+  }
+  if (studentfullname) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::Students::FullName>::GetOwningArena(studentfullname);
+    if (message_arena != submessage_arena) {
+      studentfullname = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, studentfullname, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  studentfullname_ = studentfullname;
+  // @@protoc_insertion_point(field_set_allocated:Students.Student.StudentFullName)
 }
 
 // repeated int32 Scores = 5;

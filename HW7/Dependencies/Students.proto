@@ -6,12 +6,12 @@ message FullName
 {
 	string surname = 1;
 	string name = 2;
-	string patronymic = 3;
+	optional string patronymic = 3;
 }
 
 message Student
 {
-  repeated FullName StudentFullName = 4;
+  FullName StudentFullName = 4;
   repeated int32 Scores = 5;
   double GPA = 6;
 }
